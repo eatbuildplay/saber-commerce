@@ -26,7 +26,7 @@ class Plugin {
 
 		$this->registerAutoloader();
 
-		new Component;
+		new Component\Account\AccountComponent();
 
 	}
 
@@ -38,12 +38,21 @@ class Plugin {
 
 	public function autoload( $className ) {
 
-		// var_dump( substr( $className, 0, 13 ) );
+		// Load from /component
+		if( substr( $className, 0, 24 ) == 'SaberCommerce\Component\\' ) {
 
+			$classFileName = str_replace( 'SaberCommerce\Component\\', '', $className );
+			require( SABER_COMMERCE_PATH . 'components/' . $classFileName . '.php' );
+			return;
+
+		}
+
+		// Load from /inc
 		if( substr( $className, 0, 13 ) == 'SaberCommerce' ) {
 
 			$classFileName = str_replace( 'SaberCommerce\\', '', $className );
 			require( SABER_COMMERCE_PATH . 'inc/' . $classFileName . '.php' );
+			return;
 
 		}
 
