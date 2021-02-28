@@ -12,6 +12,7 @@
 	<li data-section="invoices">INVOICES</li>
 	<li data-section="profile">PROFILE</li>
 	<li data-section="users">USERS</li>
+	<li data-section="logout">LOGOUT</li>
 </ul>
 
 <div class="container">
