@@ -26,10 +26,13 @@ class Plugin {
 
 		$this->registerAutoloader();
 
-		$account = new Component\Account\AccountComponent();
-		$account->init();
+		$c = new Component\Account\AccountComponent();
+		$c->init();
 
 		$c = new Component\Dashboard\DashboardComponent();
+		$c->init();
+
+		$c = new Component\Timesheet\TimesheetComponent();
 		$c->init();
 
 	}
@@ -64,6 +67,9 @@ class Plugin {
 	}
 
 	public static function activation() {
+
+		$ts = new Component\Timesheet\TimesheetComponent();
+		$ts->activation();
 
 	}
 
