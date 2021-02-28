@@ -1,10 +1,10 @@
 <?php
 
-namespace SaberCommerce\Component\Account;
+namespace SaberCommerce\Component\Dashboard;
 
 use \SaberCommerce\Template;
 
-class AccountComponent extends \SaberCommerce\Component {
+class DashboardComponent extends \SaberCommerce\Component {
 
 	public function init() {
 
@@ -27,24 +27,14 @@ class AccountComponent extends \SaberCommerce\Component {
 
 	public function addShortcodes() {
 
-		add_shortcode('saber_commerce_account_register', function() {
+		add_shortcode('sacom_dashboard', function() {
 
 			$template = new Template();
-			$template->path = 'components/Account/templates/';
-			$template->name = 'register_form';
+			$template->path = 'components/Dashboard/templates/';
+			$template->name = 'main';
 			return $template->get();
 
 		});
-
-		add_shortcode('saber_commerce_account_login', function() {
-
-			$template = new Template();
-			$template->path = 'components/Account/templates/';
-			$template->name = 'login_form';
-			return $template->get();
-
-		});
-
 
 	}
 

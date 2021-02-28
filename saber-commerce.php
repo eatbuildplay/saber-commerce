@@ -29,6 +29,9 @@ class Plugin {
 		$account = new Component\Account\AccountComponent();
 		$account->init();
 
+		$c = new Component\Dashboard\DashboardComponent();
+		$c->init();
+
 	}
 
 	public function registerAutoloader() {

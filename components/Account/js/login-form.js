@@ -6,15 +6,19 @@
 	$('#sacom_login_form').submit( function( e ) {
 
 		e.preventDefault();
-		var values = {}
-		values.username = $('#field-username').val();
-		values.password = $('#field-password').val();
+		var data = {}
+		data.values = {}
+		data.values.username = $('#field-username').val();
+		data.values.password = $('#field-password').val();
 
-		wp.ajax.post('sacom_login_form_process', ).done( function( response ) {
+		wp.ajax.post('sacom_login_form_process', data).done( function( response ) {
 
 			console.log( response );
 
 			/* redirect user to dashboard */
+			if( response.code == 200 ) {
+				window.location = "http://ebp.dev.cc/dashboard/";
+			}
 
 		});
 
