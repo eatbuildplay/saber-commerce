@@ -13,9 +13,40 @@
  *
  */
 
+namespace SaberCommerce;
+
+define('SABER_COMMERCE_PLUGIN_NAME', 'Saber Commerce');
+define('SABER_COMMERCE_VERSION', '0.0.1');
+define('SABER_COMMERCE_PATH', plugin_dir_path(__FILE__));
+define('ESABER_COMMERCE_URL', plugin_dir_url(__FILE__));
+
 class Plugin {
 
 	public function __construct() {
+
+		$this->registerAutoloader();
+
+		new Component;
+
+	}
+
+	public function registerAutoloader() {
+
+		spl_autoload_register( [$this, 'autoload'] );
+
+	}
+
+	public function autoload( $className ) {
+
+		// var_dump( substr( $className, 0, 13 ) );
+
+		if( substr( $className, 0, 13 ) == 'SaberCommerce' ) {
+
+			$classFileName = str_replace( 'SaberCommerce\\', '', $className );
+			require( SABER_COMMERCE_PATH . 'inc/' . $classFileName . '.php' );
+
+		}
+
 
 	}
 
@@ -30,3 +61,9 @@ class Plugin {
 }
 
 new Plugin();
+
+/*
+ * Activation and deactivation hooks
+ */
+register_activation_hook(__FILE__, '\SaberCommerce\Plugin::activation');
+register_deactivation_hook(__FILE__, '\SaberCommerce\Plugin::deactivation');
