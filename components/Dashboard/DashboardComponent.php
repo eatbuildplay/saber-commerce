@@ -11,16 +11,26 @@ class DashboardComponent extends \SaberCommerce\Component {
 		$this->addShortcodes();
 
 		add_action('wp_enqueue_scripts', [$this, 'addScripts']);
+		add_action('wp_enqueue_scripts', [$this, 'addStyles']);
 
-		add_action('wp_ajax_sacom_login_form_process', [$this, 'loginFormProcess']);
+
+		add_action('wp_ajax_sacom_dashboard_section_load', [$this, 'sectionLoad']);
 
 	}
 
-	public function loginFormProcess() {
+	public function sectionLoad() {
 
-		// send response
+		// open response
 		$response = new \stdClass();
 		$response->code = 200;
+
+		// load profile template
+		$template = new Template();
+		$template->path = 'components/Dashboard/templates/';
+		$template->name = 'profile';
+		$response->template = $template->get();
+
+		// send response
 		wp_send_json_success( $response );
 
 	}
@@ -38,32 +48,26 @@ class DashboardComponent extends \SaberCommerce\Component {
 
 	}
 
+	public function addStyles() {
+
+		wp_enqueue_style(
+			'sacom-dashboard-style',
+			SABER_COMMERCE_URL . '/components/Dashboard/css/dashboard.css',
+			[],
+			time()
+	  );
+
+	}
+
 	public function addScripts() {
 
 		wp_enqueue_script(
-			'bootstrap',
-			'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js',
-			['jquery'],
-			'5.0.0',
-			true
-	  );
-
-		wp_enqueue_script(
-			'sacom-parsely',
-			SABER_COMMERCE_URL . '/components/Account/js/parsely.min.js',
-			['jquery'],
-			'2.9.2',
-			true
-	  );
-
-		wp_enqueue_script(
-			'sacom-login-form-script',
-			SABER_COMMERCE_URL . '/components/Account/js/login-form.js',
+			'sacom-dashboard-script',
+			SABER_COMMERCE_URL . '/components/Dashboard/js/dashboard.js',
 			['jquery', 'wp-util'],
-			'1.0.0',
+			time(),
 			true
 	  );
-
 
 	}
 
