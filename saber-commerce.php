@@ -26,7 +26,8 @@ class Plugin {
 
 		$this->registerAutoloader();
 
-		new Component\Account\AccountComponent();
+		$account = new Component\Account\AccountComponent();
+		$account->init();
 
 	}
 
