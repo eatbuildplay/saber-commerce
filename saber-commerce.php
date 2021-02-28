@@ -18,7 +18,7 @@ namespace SaberCommerce;
 define('SABER_COMMERCE_PLUGIN_NAME', 'Saber Commerce');
 define('SABER_COMMERCE_VERSION', '0.0.1');
 define('SABER_COMMERCE_PATH', plugin_dir_path(__FILE__));
-define('ESABER_COMMERCE_URL', plugin_dir_url(__FILE__));
+define('SABER_COMMERCE_URL', plugin_dir_url(__FILE__));
 
 class Plugin {
 
