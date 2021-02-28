@@ -20,6 +20,8 @@ class DashboardComponent extends \SaberCommerce\Component {
 
 	public function sectionLoad() {
 
+		$section = $_POST['section'];
+
 		$user = wp_get_current_user();
 
 		// open response
@@ -31,7 +33,7 @@ class DashboardComponent extends \SaberCommerce\Component {
 		// load profile template
 		$template = new Template();
 		$template->path = 'components/Dashboard/templates/';
-		$template->name = 'profile';
+		$template->name = 'section-' . $section;
 		$template->data['user'] = $user;
 		$response->template = $template->get();
 

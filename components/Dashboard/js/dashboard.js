@@ -16,7 +16,9 @@
 
 	function loadSection( section ) {
 
-		var data = {}
+		var data = {
+			section: section
+		}
 		wp.ajax.post( 'sacom_dashboard_section_load', data ).done( function( response ) {
 
 			console.log( response );
