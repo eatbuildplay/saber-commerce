@@ -2,14 +2,14 @@
 
 namespace SaberCommerce\Component\Timesheet;
 
-class TimesheetModel {
+class TimesheetEntryModel {
 
 	public $timesheetEntryId;
 	public $timesheetId;
 	public $memo;
 	public $timeStart;
 	public $timeEnd;
-	public $duration
+	public $duration;
 	public $table = 'timesheet_entry';
 
 	public function fetch( $timesheetId ) {

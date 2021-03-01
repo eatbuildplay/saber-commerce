@@ -30,6 +30,24 @@
 
 	}
 
+	/* Load timesheet on button click */
+	$( document ).on('click', '.button-timesheet-view', function() {
+
+		let timesheet = $(this).data('timesheet');
+		var data = {
+			timesheet: timesheet
+		}
+		wp.ajax.post( 'sacom_dashboard_timesheet_load', data ).done( function( response ) {
+
+			console.log( response );
+
+			let template = $( response.template );
+			$('#timesheet-single-canvas').html( template );
+
+		});
+
+	});
+
 
 
 

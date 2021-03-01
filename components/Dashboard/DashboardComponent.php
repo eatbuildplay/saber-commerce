@@ -3,6 +3,7 @@
 namespace SaberCommerce\Component\Dashboard;
 
 use \SaberCommerce\Template;
+use \SaberCommerce\Component\Timesheet\TimesheetModel;
 
 class DashboardComponent extends \SaberCommerce\Component {
 
@@ -15,6 +16,7 @@ class DashboardComponent extends \SaberCommerce\Component {
 
 
 		add_action('wp_ajax_sacom_dashboard_section_load', [$this, 'sectionLoad']);
+		add_action('wp_ajax_sacom_dashboard_timesheet_load', [$this, 'timesheetLoad']);
 
 	}
 
@@ -30,11 +32,40 @@ class DashboardComponent extends \SaberCommerce\Component {
 
 		$response->user = $user;
 
-		// load profile template
+		// load section main template
 		$template = new Template();
 		$template->path = 'components/Dashboard/templates/';
 		$template->name = 'section-' . $section;
 		$template->data['user'] = $user;
+		$response->template = $template->get();
+
+		// send response
+		wp_send_json_success( $response );
+
+	}
+
+	public function timesheetLoad() {
+
+		$timesheetId = $_POST['timesheet'];
+
+		// open response
+		$response = new \stdClass();
+		$response->code = 200;
+
+		$user = wp_get_current_user();
+
+		$m = new TimesheetModel();
+		$response->timesheet = $m->fetchOne( $timesheetId );
+
+
+
+		$response->user = $user;
+
+		// load profile template
+		$template = new Template();
+		$template->path = 'components/Dashboard/templates/';
+		$template->name = 'timesheet-single';
+		$template->data['timesheet'] = $response->timesheet;
 		$response->template = $template->get();
 
 		// send response

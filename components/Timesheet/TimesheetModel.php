@@ -28,6 +28,28 @@ class TimesheetModel {
 
 	}
 
+	public function fetchOne( $timesheetId ) {
+
+		$this->timesheetId = $timesheetId;
+
+		global $wpdb;
+		$where = '1=1';
+		$where .= " AND id_timesheet = $timesheetId";
+		$result = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where" .
+			" LIMIT 1"
+		);
+		$timesheet = $result[0];
+
+		$tsem = new TimesheetEntryModel();
+		$timesheet->entries = $tsem->fetch( $timesheetId );
+
+		return $timesheet;
+
+	}
+
 	public function save() {
 
 		if( !$this->accountId ) {

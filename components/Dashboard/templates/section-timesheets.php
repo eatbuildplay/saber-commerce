@@ -16,11 +16,19 @@ $r = $m->fetch( $accountId );
 					<td><?php print $t->label; ?></td>
 					<td><?php print $t->date_start; ?> to <?php print $t->date_end; ?></td>
 					<td>
-						<button class="btn btn-secondary">View Timesheet</button>
+						<button class="btn btn-secondary button-timesheet-view" data-timesheet="<?php print $t->id_timesheet; ?>">View Timesheet</button>
 					</td>
 				</tr>
 				<?php endforeach; ?>
 			</table>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div id="timesheet-single-canvas"></div>
 		</div>
 	</div>
 </div>
