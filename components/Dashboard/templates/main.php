@@ -10,7 +10,7 @@
 <ul id="sacom-dashboard-menu">
 	<li data-section="payments">PAYMENTS</li>
 	<li data-section="invoices">INVOICES</li>
-	<li data-section="timesheets">TIME TRACKING</li>
+	<li data-section="timesheets">TIMESHEETS</li>
 	<li data-section="profile">PROFILE</li>
 	<li data-section="users">USERS</li>
 	<li data-section="logout">LOGOUT</li>

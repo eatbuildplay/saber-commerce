@@ -1,6 +1,8 @@
 <?php
 
-
+$m = new \SaberCommerce\Component\Timesheet\TimesheetModel;
+$accountId = 17;
+$r = $m->fetch( $accountId );
 
 ?>
 
@@ -9,12 +11,15 @@
 		<div class="col-12">
 			<h1>Timesheets</h1>
 			<table>
+				<?php foreach( $r as $t ): ?>
 				<tr>
-					<td>2021-02-15 to 2021-02-22</td>
+					<td><?php print $t->label; ?></td>
+					<td><?php print $t->date_start; ?> to <?php print $t->date_end; ?></td>
 					<td>
 						<button class="btn btn-secondary">View Timesheet</button>
 					</td>
 				</tr>
+				<?php endforeach; ?>
 			</table>
 		</div>
 	</div>
