@@ -20,15 +20,25 @@ class TimesheetModel {
 		global $wpdb;
 		$where = '1=1';
 		$where .= " AND id_account = $accountId";
-		$result = $wpdb->get_results(
+		$tss = $wpdb->get_results(
 			"SELECT * FROM " .
 			$this->tableName() .
 			" WHERE $where"
 		);
-		return $result;
+
+		foreach( $tss as $index => $timesheet ) {
+
+			$tss[ $index ] = $this->load( $timesheet );
+
+		}
+
+		return $tss;
 
 	}
 
+	/*
+	 * Fetch one timesheet from database
+	 */
 	public function fetchOne( $timesheetId ) {
 
 		$this->timesheetId = $timesheetId;
@@ -44,21 +54,39 @@ class TimesheetModel {
 		);
 		$timesheet = $result[0];
 
+		$this->load( $timesheet );
+
+		return $timesheet;
+
+	}
+
+	/*
+	 * Loading function for single timesheets
+	 */
+	public function load( $timesheet ) {
+
 		$tsem = new TimesheetEntryModel();
-		$timesheet->entries = $tsem->fetch( $timesheetId );
+		$timesheet->entries = $tsem->fetch( $timesheet->id_timesheet );
 
 		/* calculate totals */
 		$timesheet->totals = new \stdClass;
-		foreach( $timesheet->entries as $e ) {
-			$timesheet->totals->minutes += $e->duration;
+		if( !empty( $timesheet->entries ) ) {
+			foreach( $timesheet->entries as $e ) {
+				$timesheet->totals->minutes += $e->duration;
+			}
+			$timesheet->totals->hours = round( $timesheet->totals->minutes / 60, 2 );
+		} else {
+			$timesheet->totals->minutes = 0;
+			$timesheet->totals->hours   = 0;
 		}
-		$timesheet->totals->hours = round( $timesheet->totals->minutes / 60, 2 );
 
 		/* load billable rate */
 		if( !$timesheet->billable_rate ) {
 			// fetch billable rate from workspace
-			
+			$timesheet->billable_rate = 40;
 		}
+
+		$timesheet->totals->billable = round( $timesheet->totals->hours * $timesheet->billable_rate, 2 );
 
 		return $timesheet;
 

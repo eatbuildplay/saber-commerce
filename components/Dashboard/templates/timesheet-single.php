@@ -35,9 +35,16 @@
 	</tbody>
 
 	<tfoot>
-		<td>
-			<?php print $timesheet->totals->hours . ' hours.'; ?>
-		</td>
+		<tr>
+			<td>
+				<?php print $timesheet->totals->hours . ' hours.'; ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?php print '$' . $timesheet->totals->billable . ' billable.'; ?>
+			</td>
+		</tr>
 	</tfoot>
 
 </table>
