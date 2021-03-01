@@ -1,1 +1,7 @@
+#sacom-dashboard-menu li {
+	cursor: pointer;
+}
 
+#sacom-dashboard-menu li:hover {
+	color: #545454;
+}
