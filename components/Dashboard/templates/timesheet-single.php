@@ -42,6 +42,11 @@
 		</tr>
 		<tr>
 			<td>
+				<?php print '$' . $timesheet->billable_rate . ' per hour.'; ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<?php print '$' . $timesheet->totals->billable . ' billable.'; ?>
 			</td>
 		</tr>
