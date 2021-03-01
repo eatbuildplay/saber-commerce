@@ -2,11 +2,30 @@
 
 	<h2>Timesheet Single</h2>
 
+<table>
 
-<?php foreach( $timesheet->entries as $e ) : ?>
+	<thead>
+		<th>Memo</th>
+		<th>Start Time</th>
+		<th>End Time</th>
+		<th>Duration</th>
+	</thead>
 
-	<h3><?php print $e->memo; ?></h3>
+	<tbody>
 
-<?php endforeach; ?>
+		<?php foreach( $timesheet->entries as $e ) : ?>
+
+			<tr>
+				<td><?php print $e->memo; ?></td>
+				<td><?php print $e->time_start; ?></td>
+				<td><?php print $e->time_end; ?></td>
+				<td><?php print $e->duration; ?></td>
+			</tr>
+
+		<?php endforeach; ?>
+
+	</tbody>
+
+</table>
 
 </div>
