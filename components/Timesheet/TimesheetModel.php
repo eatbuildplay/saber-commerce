@@ -12,6 +12,7 @@ class TimesheetModel {
 	public $label;
 	public $dateStart;
 	public $dateEnd;
+	protected $billableRate;
 	public $table = 'timesheet';
 
 	public function fetch( $accountId ) {
@@ -53,6 +54,11 @@ class TimesheetModel {
 		}
 		$timesheet->totals->hours = round( $timesheet->totals->minutes / 60, 2 );
 
+		/* load billable rate */
+		if( !$timesheet->billable_rate ) {
+			// fetch billable rate from workspace
+			
+		}
 
 		return $timesheet;
 

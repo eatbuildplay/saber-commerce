@@ -113,6 +113,7 @@ class TimesheetComponent extends \SaberCommerce\Component {
 			label tinytext NOT NULL,
 			date_start datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			date_end datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			billable_rate mediumint(9) NOT NULL,
 			PRIMARY KEY (id_timesheet)
 		) $charsetCollate;";
 		dbDelta( $sql );
