@@ -14,10 +14,17 @@ class TimesheetModel {
 	public $dateEnd;
 	public $table = 'timesheet';
 
-	public function fetch() {
+	public function fetch( $accountId ) {
 
-
-
+		global $wpdb;
+		$where = '1=1';
+		$where .= " AND id_account = $accountId";
+		$result = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where"
+		);
+		return $result;
 
 	}
 

@@ -15,8 +15,15 @@ class TimesheetComponent extends \SaberCommerce\Component {
 		add_action('wp_ajax_sacom_login_form_process', [$this, 'loginFormProcess']);
 
 		$m = new TimesheetModel();
+
+		/* Fetch Timesheets
+		$tss = $m->fetch(17);
+		*/
+
+		/* Delete Timesheet
 		$m->timesheetId = 3;
 		$m->delete();
+		*/
 
 		/* Save Timesheet
 		$m->timesheetId = 1;
