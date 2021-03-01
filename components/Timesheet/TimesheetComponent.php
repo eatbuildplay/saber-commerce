@@ -14,6 +14,20 @@ class TimesheetComponent extends \SaberCommerce\Component {
 
 		add_action('wp_ajax_sacom_login_form_process', [$this, 'loginFormProcess']);
 
+		$m = new TimesheetModel();
+		$m->timesheetId = 3;
+		$m->delete();
+
+		/* Save Timesheet
+		$m->timesheetId = 1;
+		$m->accountId = 17;
+		$m->projectId = 254;
+		$m->label = "Last Week Timesheet";
+		$m->dateStart = '2020-02-15';
+		$m->dateEnd = '2020-02-22';
+		$m->save();
+		*/
+
 	}
 
 	public function loginFormProcess() {
