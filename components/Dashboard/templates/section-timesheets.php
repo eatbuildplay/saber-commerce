@@ -10,7 +10,7 @@ $r = $m->fetch( $accountId );
 	<div class="row">
 		<div class="col-12">
 			<h1>Timesheets</h1>
-			<table>
+			<table class="table">
 				<?php foreach( $r as $t ): ?>
 				<tr>
 					<td><?php print $t->label; ?></td>

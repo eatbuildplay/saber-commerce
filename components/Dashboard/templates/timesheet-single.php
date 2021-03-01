@@ -2,7 +2,7 @@
 
 	<h2>Timesheet Single</h2>
 
-<table>
+<table class="table">
 
 	<thead>
 		<th>Memo</th>
@@ -13,7 +13,15 @@
 
 	<tbody>
 
-		<?php foreach( $timesheet->entries as $e ) : ?>
+		<?php
+
+			$durationTotal = 0;
+
+			foreach( $timesheet->entries as $e ) :
+
+				$durationTotal += $e->duration;
+
+		?>
 
 			<tr>
 				<td><?php print $e->memo; ?></td>
@@ -25,6 +33,12 @@
 		<?php endforeach; ?>
 
 	</tbody>
+
+	<tfoot>
+		<td>
+			<?php print $durationTotal / 60 . ' hours.'; ?>
+		</td>
+	</tfoot>
 
 </table>
 
