@@ -36,7 +36,7 @@
 
 	<tfoot>
 		<td>
-			<?php print $durationTotal / 60 . ' hours.'; ?>
+			<?php print $timesheet->totals->hours . ' hours.'; ?>
 		</td>
 	</tfoot>
 

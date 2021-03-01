@@ -46,6 +46,14 @@ class TimesheetModel {
 		$tsem = new TimesheetEntryModel();
 		$timesheet->entries = $tsem->fetch( $timesheetId );
 
+		/* calculate totals */
+		$timesheet->totals = new \stdClass;
+		foreach( $timesheet->entries as $e ) {
+			$timesheet->totals->minutes += $e->duration;
+		}
+		$timesheet->totals->hours = round( $timesheet->totals->minutes / 60, 2 );
+
+
 		return $timesheet;
 
 	}
