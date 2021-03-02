@@ -14,6 +14,7 @@ $r = $m->fetch( $accountId );
 
 				<thead>
 					<th>Label</th>
+					<th>Workspace</th>
 					<th>Time Period</th>
 					<th>Hours Tracked</th>
 					<th>Billable Rate</th>
@@ -24,6 +25,7 @@ $r = $m->fetch( $accountId );
 					<?php foreach( $r as $t ): ?>
 					<tr>
 						<td><?php print $t->label; ?></td>
+						<td><?php print $t->id_workspace; ?></td>
 						<td><?php print $t->date_start; ?> to <?php print $t->date_end; ?></td>
 						<td><?php print $t->totals->hours; ?></td>
 						<td><?php print $t->billable_rate; ?></td>

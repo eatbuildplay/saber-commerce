@@ -2,56 +2,55 @@
 
 	<h2>Timesheet Single</h2>
 
-<table class="table">
+	<h4>Date Start: <?php print $timesheet->date_start; ?></h4>
+	<h4>Workspace <?php print $timesheet->id_workspace; ?></h4>
 
-	<thead>
-		<th>Memo</th>
-		<th>Start Time</th>
-		<th>End Time</th>
-		<th>Duration</th>
-	</thead>
+	<table class="table">
 
-	<tbody>
+		<thead>
+			<th>Memo</th>
+			<th>Start Time</th>
+			<th>End Time</th>
+			<th>Duration</th>
+		</thead>
 
-		<?php
+		<tbody>
 
-			$durationTotal = 0;
+			<?php
 
-			foreach( $timesheet->entries as $e ) :
+				foreach( $timesheet->entries as $e ) :
 
-				$durationTotal += $e->duration;
+			?>
 
-		?>
+				<tr>
+					<td><?php print $e->memo; ?></td>
+					<td><?php print $e->time_start; ?></td>
+					<td><?php print $e->time_end; ?></td>
+					<td><?php print $e->duration; ?></td>
+				</tr>
 
+			<?php endforeach; ?>
+
+		</tbody>
+
+		<tfoot>
 			<tr>
-				<td><?php print $e->memo; ?></td>
-				<td><?php print $e->time_start; ?></td>
-				<td><?php print $e->time_end; ?></td>
-				<td><?php print $e->duration; ?></td>
+				<td>
+					<?php print $timesheet->totals->hours . ' hours.'; ?>
+				</td>
 			</tr>
+			<tr>
+				<td>
+					<?php print '$' . $timesheet->billable_rate . ' per hour.'; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php print '$' . $timesheet->totals->billable . ' billable.'; ?>
+				</td>
+			</tr>
+		</tfoot>
 
-		<?php endforeach; ?>
-
-	</tbody>
-
-	<tfoot>
-		<tr>
-			<td>
-				<?php print $timesheet->totals->hours . ' hours.'; ?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?php print '$' . $timesheet->billable_rate . ' per hour.'; ?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?php print '$' . $timesheet->totals->billable . ' billable.'; ?>
-			</td>
-		</tr>
-	</tfoot>
-
-</table>
+	</table>
 
 </div>
