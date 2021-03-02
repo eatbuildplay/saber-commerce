@@ -14,6 +14,7 @@
 			<ul id="sacom-dashboard-menu">
 				<li data-section="payments">PAYMENTS</li>
 				<li data-section="invoices">INVOICES</li>
+				<li data-section="workspaces">WORKSPACES</li>
 				<li data-section="timesheets">TIMESHEETS</li>
 				<li data-section="profile">PROFILE</li>
 				<li data-section="users">USERS</li>
