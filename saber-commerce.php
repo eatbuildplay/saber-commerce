@@ -38,6 +38,9 @@ class Plugin {
 		$c = new Component\Workspace\WorkspaceComponent();
 		$c->init();
 
+		$c = new Component\Invoice\InvoiceComponent();
+		$c->init();
+
 	}
 
 	public function registerAutoloader() {
@@ -75,6 +78,9 @@ class Plugin {
 		$c->activation();
 
 		$c = new Component\Workspace\WorkspaceComponent();
+		$c->activation();
+
+		$c = new Component\Invoice\InvoiceComponent();
 		$c->activation();
 
 	}
