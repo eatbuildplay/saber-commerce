@@ -57,6 +57,17 @@ class InvoiceComponent extends \SaberCommerce\Component {
 		) $charsetCollate;";
 		dbDelta( $sql );
 
+		/* Install Invoice Line Table */
+		$tableName = $wpdb->prefix . 'sacom_invoice_line';
+		$sql = "CREATE TABLE $tableName (
+			id_invoice_line mediumint(9) NOT NULL AUTO_INCREMENT,
+			id_invoice mediumint(9) NOT NULL,
+			memo tinytext NOT NULL,
+			amount decimal(10, 2) NOT NULL,
+			PRIMARY KEY (id_invoice_line)
+		) $charsetCollate;";
+		dbDelta( $sql );
+
 	}
 
 
