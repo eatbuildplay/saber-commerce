@@ -109,7 +109,7 @@ class TimesheetComponent extends \SaberCommerce\Component {
 		$sql = "CREATE TABLE $tableName (
 			id_timesheet mediumint(9) NOT NULL AUTO_INCREMENT,
 			id_account mediumint(9) NOT NULL,
-			id_project mediumint(9) NOT NULL,
+			id_workspace mediumint(9) NOT NULL,
 			label tinytext NOT NULL,
 			date_start datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			date_end datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,

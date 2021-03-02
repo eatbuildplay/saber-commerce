@@ -35,6 +35,9 @@ class Plugin {
 		$c = new Component\Timesheet\TimesheetComponent();
 		$c->init();
 
+		$c = new Component\Workspace\WorkspaceComponent();
+		$c->init();
+
 	}
 
 	public function registerAutoloader() {
@@ -68,8 +71,11 @@ class Plugin {
 
 	public static function activation() {
 
-		$ts = new Component\Timesheet\TimesheetComponent();
-		$ts->activation();
+		$c = new Component\Timesheet\TimesheetComponent();
+		$c->activation();
+
+		$c = new Component\Workspace\WorkspaceComponent();
+		$c->activation();
 
 	}
 
