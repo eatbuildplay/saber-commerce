@@ -2,7 +2,7 @@
 
 namespace SaberCommerce\Component\Invoice;
 
-class InvoiceEntryModel {
+class InvoiceLineModel {
 
 	public $invoiceLineId;
 	public $invoiceId;

@@ -16,13 +16,13 @@
 
 			<?php
 
-				foreach( $invoice->items as $item ) :
+				foreach( $invoice->lines as $line ) :
 
 			?>
 
 				<tr>
-					<td><?php print $item->memo; ?></td>
-					<td><?php print $item->amount; ?></td>
+					<td><?php print $line->memo; ?></td>
+					<td><?php print $line->amount; ?></td>
 				</tr>
 
 			<?php endforeach; ?>
@@ -32,7 +32,7 @@
 		<tfoot>
 			<tr>
 				<td>
-					<?php print '203.54'; ?>
+					<?php print '$' . $invoice->total; ?>
 				</td>
 			</tr>
 		</tfoot>

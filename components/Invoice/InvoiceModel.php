@@ -61,16 +61,16 @@ class InvoiceModel {
 	 */
 	public function load( $invoice ) {
 
-		$item1 = new \stdClass;
-		$item1->memo = "Item Uno";
-		$item1->amount = "12.59";
-		$item2 = new \stdClass;
-		$item2->memo = "Item Dos";
-		$item2->amount = "59.29";
-		$invoice->items = [
-			$item1,
-			$item2
-		];
+		// load line items
+		$m = new InvoiceLineModel();
+		$invoice->lines = $m->fetch( $invoice->id_invoice );
+
+		// calculate total
+		$total = 0;
+		foreach( $invoice->lines as $line ) {
+			$total += $line->amount;
+		}
+		$invoice->total = round( $total, 2 );
 
 		return $invoice;
 
