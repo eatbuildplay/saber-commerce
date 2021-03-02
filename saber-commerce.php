@@ -41,6 +41,9 @@ class Plugin {
 		$c = new Component\Invoice\InvoiceComponent();
 		$c->init();
 
+		$c = new Component\Payment\PaymentComponent();
+		$c->init();
+
 	}
 
 	public function registerAutoloader() {
@@ -81,6 +84,9 @@ class Plugin {
 		$c->activation();
 
 		$c = new Component\Invoice\InvoiceComponent();
+		$c->activation();
+
+		$c = new Component\Payment\PaymentComponent();
 		$c->activation();
 
 	}
