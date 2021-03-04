@@ -26,6 +26,8 @@
 			let template = $( response.template );
 			$('#dashboard-canvas').html( template );
 
+			setupStripe();
+
 		});
 
 	}

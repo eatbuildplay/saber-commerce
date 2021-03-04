@@ -16,11 +16,9 @@ class DashboardComponent extends \SaberCommerce\Component {
 		add_action('wp_enqueue_scripts', [$this, 'addScripts']);
 		add_action('wp_enqueue_scripts', [$this, 'addStyles']);
 
-
 		add_action('wp_ajax_sacom_dashboard_section_load', [$this, 'sectionLoad']);
 		add_action('wp_ajax_sacom_dashboard_timesheet_load', [$this, 'timesheetLoad']);
 		add_action('wp_ajax_sacom_dashboard_invoice_load', [$this, 'invoiceLoad']);
-
 
 	}
 

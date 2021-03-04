@@ -14,6 +14,17 @@ class PaymentComponent extends \SaberCommerce\Component {
 
 		add_action('wp_ajax_sacom_login_form_process', [$this, 'loginFormProcess']);
 
+		add_filter("page_template", function( $page_template ) {
+
+			$id = substr($page_template, strrpos($page_template, '/') + 1);
+			if ( is_page('checkout-session') ) {
+				$page_template = SABER_COMMERCE_PATH . 'components/Payment/Methods/Stripe/templates/checkout-session.php';
+			}
+
+			return $page_template;
+
+		});
+
 	}
 
 	public function addShortcodes() {
@@ -32,10 +43,18 @@ class PaymentComponent extends \SaberCommerce\Component {
 	public function addScripts() {
 
 		wp_enqueue_script(
-			'sacom-login-form-script',
-			SABER_COMMERCE_URL . '/components/Account/js/login-form.js',
-			['jquery', 'wp-util'],
-			'1.0.0',
+			'sacom-stripe',
+			'https://js.stripe.com/v3/',
+			[],
+			'3.0.0',
+			true
+	  );
+
+		wp_enqueue_script(
+			'sacom-stripe-client',
+			SABER_COMMERCE_URL . '/components/Payment/Methods/Stripe/script/client.js',
+			[],
+			time(),
 			true
 	  );
 
