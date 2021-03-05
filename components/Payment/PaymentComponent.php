@@ -11,8 +11,8 @@ class PaymentComponent extends \SaberCommerce\Component {
 		$this->addShortcodes();
 
 		add_action('wp_enqueue_scripts', [$this, 'addScripts']);
+		add_action('wp_enqueue_scripts', [$this, 'addStyles']);
 
-		add_action('wp_ajax_sacom_login_form_process', [$this, 'loginFormProcess']);
 
 		add_filter("page_template", function( $page_template ) {
 
@@ -29,14 +29,6 @@ class PaymentComponent extends \SaberCommerce\Component {
 
 	public function addShortcodes() {
 
-		add_shortcode('saber_commerce_account_register', function() {
-
-			$template = new Template();
-			$template->path = 'components/Account/templates/';
-			$template->name = 'register_form';
-			return $template->get();
-
-		});
 
 	}
 
@@ -56,6 +48,17 @@ class PaymentComponent extends \SaberCommerce\Component {
 			[],
 			time(),
 			true
+	  );
+
+	}
+
+	public function addStyles() {
+
+		wp_enqueue_style(
+			'sacom-stripe-form',
+			SABER_COMMERCE_URL . '/components/Payment/Methods/Stripe/css/stripe-form.css',
+			[],
+			time()
 	  );
 
 	}
