@@ -2,10 +2,10 @@
 
 namespace SaberCommerce\Component\Payment;
 
-class PaymentMethod {
+abstract class PaymentMethod {
 
-	abstract public function getTitle() {}
+	abstract public function getTitle();
 
-		
+
 
 }

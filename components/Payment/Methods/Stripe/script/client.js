@@ -1,64 +1,55 @@
 function setupStripe() {
 
-
-
 	// A reference to Stripe.js initialized with your real test publishable API key.
 	var stripe = Stripe("pk_test_4QKQIABCRJKlYwZ4CoG0yQws");
 
-	// The items the customer wants to buy
-	var purchase = {
-	  items: [{ id: "xl-tshirt" }]
-	};
-
 	// Disable the button until we have Stripe set up on the page
 	document.querySelector("button").disabled = true;
-	fetch("http://ebp.dev.cc/checkout-session/", {
-	  method: "POST",
-	  headers: {
-	    "Content-Type": "application/json"
-	  },
-	  body: JSON.stringify(purchase)
-	})
-	  .then(function(result) {
-	    return result.json();
-	  })
-	  .then(function(data) {
-	    var elements = stripe.elements();
 
-	    var style = {
-	      base: {
-	        color: "#32325d",
-	        fontFamily: 'Arial, sans-serif',
-	        fontSmoothing: "antialiased",
-	        fontSize: "16px",
-	        "::placeholder": {
-	          color: "#32325d"
-	        }
-	      },
-	      invalid: {
-	        fontFamily: 'Arial, sans-serif',
-	        color: "#fa755a",
-	        iconColor: "#fa755a"
-	      }
-	    };
+	var data = {
+		invoices: [ 2 ]
+	}
+	wp.ajax.post( 'sacom_stripe_checkout', data ).done( function( response ) {
 
-	    var card = elements.create("card", { style: style });
-	    // Stripe injects an iframe into the DOM
-	    card.mount("#card-element");
+		console.log( response )
 
-	    card.on("change", function (event) {
-	      // Disable the Pay button if there are no card details in the Element
-	      document.querySelector("button").disabled = event.empty;
-	      document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
-	    });
+		var elements = stripe.elements();
 
-	    var form = document.getElementById("payment-form");
-	    form.addEventListener("submit", function(event) {
-	      event.preventDefault();
-	      // Complete payment when the submit button is clicked
-	      payWithCard(stripe, card, data.clientSecret);
-	    });
-	  });
+		var style = {
+			base: {
+				color: "#32325d",
+				fontFamily: 'Arial, sans-serif',
+				fontSmoothing: "antialiased",
+				fontSize: "16px",
+				"::placeholder": {
+					color: "#32325d"
+				}
+			},
+			invalid: {
+				fontFamily: 'Arial, sans-serif',
+				color: "#fa755a",
+				iconColor: "#fa755a"
+			}
+		};
+
+		var card = elements.create("card", { style: style });
+		// Stripe injects an iframe into the DOM
+		card.mount("#card-element");
+
+		card.on("change", function (event) {
+			// Disable the Pay button if there are no card details in the Element
+			document.querySelector("button").disabled = event.empty;
+			document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
+		});
+
+		var form = document.getElementById("payment-form");
+		form.addEventListener("submit", function(event) {
+			event.preventDefault();
+			// Complete payment when the submit button is clicked
+			payWithCard(stripe, card, data.clientSecret);
+		});
+
+	});
 
 	// Calls stripe.confirmCardPayment
 	// If the card requires authentication Stripe shows a pop-up modal to
