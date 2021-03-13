@@ -91,6 +91,16 @@ function setupStripe() {
 	    );
 	  document.querySelector(".result-message").classList.remove("hidden");
 	  document.querySelector("button").disabled = true;
+
+		// send status change to sacom stripe payments
+		var data = {
+			paymentId: 25,
+			status: 'completo98'
+		}
+		wp.ajax.post( 'sacom_stripe_status_change', data ).done( function( response ) {
+			console.log( response );
+		});
+
 	};
 
 	// Show the customer the error from Stripe if their card fails to charge

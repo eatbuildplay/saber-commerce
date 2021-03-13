@@ -49,6 +49,7 @@ class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 				$paymentModel->memo = $paymentIntent->id;
 				$paymentModel->save();
 
+				$response->paymentIntent = $paymentIntent;
 				$response->clientSecret = $paymentIntent->client_secret;
 
 				// send response
@@ -64,6 +65,24 @@ class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 
 			}
 
+			wp_die();
+
+		});
+
+		add_action('wp_ajax_sacom_stripe_status_change', function() {
+
+			$paymentId = $_POST['paymentId'];
+			$status = $_POST['status'];
+
+			$response = new \stdClass();
+			$response->code = 200;
+
+			$paymentModel = new \SaberCommerce\Component\Payment\PaymentModel();
+			$payment = $paymentModel->fetchOne( $paymentId );
+			$payment->memo = $payment->memo . '_status_' . $status;
+			$payment->save();
+
+			wp_send_json_success( $response );
 			wp_die();
 
 		});

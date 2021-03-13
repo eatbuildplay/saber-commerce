@@ -24,7 +24,7 @@ class PaymentModel {
 
 		} else {
 
-			$wpdb->update( $tableName, $data,
+			$wpdb->update( $this->tableName(), $data,
 				[ 'id_payment' => $this->paymentId ]
 			);
 
@@ -63,6 +63,29 @@ class PaymentModel {
 			" WHERE $where"
 		);
 		return $result;
+
+	}
+
+	public function fetchOne( $paymentId ) {
+
+		$this->paymentId = $paymentId;
+
+		global $wpdb;
+		$where = '1=1';
+		$where .= " AND id_payment = $paymentId";
+		$result = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where" .
+			" LIMIT 1"
+		);
+
+		$paymentData = $result[0];
+
+		$payment = new PaymentModel();
+		$payment->paymentId = $paymentData->id_payment;
+		$payment->memo = $paymentData->memo;
+		return $payment;
 
 	}
 
