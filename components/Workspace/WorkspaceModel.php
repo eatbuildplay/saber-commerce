@@ -32,6 +32,26 @@ class WorkspaceModel {
 
 	}
 
+	public function fetchAll() {
+
+		global $wpdb;
+		$where = '1=1';
+		$results = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where"
+		);
+
+		foreach( $results as $index => $workspace ) {
+
+			$results[ $index ] = $this->load( $workspace );
+
+		}
+
+		return $results;
+
+	}
+
 	/*
 	 * Fetch one workspace from database
 	 */

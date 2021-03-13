@@ -1,19 +1,18 @@
 <?php
 
-namespace SaberCommerce\Component\Timesheet;
+namespace SaberCommerce\Component\Account;
 
 use \SaberCommerce\Template;
 
-class TimesheetModel {
+class AccountModel {
 
-	public $timesheetId;
 	public $accountId;
 	public $projectId;
 	public $label;
 	public $dateStart;
 	public $dateEnd;
 	protected $billableRate;
-	public $table = 'timesheet';
+	public $table = 'account';
 
 	public function fetch( $accountId ) {
 
@@ -26,9 +25,9 @@ class TimesheetModel {
 			" WHERE $where"
 		);
 
-		foreach( $tss as $index => $timesheet ) {
+		foreach( $tss as $index => $account ) {
 
-			$tss[ $index ] = $this->load( $timesheet );
+			$tss[ $index ] = $this->load( $account );
 
 		}
 
@@ -46,9 +45,9 @@ class TimesheetModel {
 			" WHERE $where"
 		);
 
-		foreach( $tss as $index => $timesheet ) {
+		foreach( $tss as $index => $account ) {
 
-			$tss[ $index ] = $this->load( $timesheet );
+			$tss[ $index ] = $this->load( $account );
 
 		}
 
@@ -57,58 +56,35 @@ class TimesheetModel {
 	}
 
 	/*
-	 * Fetch one timesheet from database
+	 * Fetch one account from database
 	 */
-	public function fetchOne( $timesheetId ) {
+	public function fetchOne( $accountId ) {
 
-		$this->timesheetId = $timesheetId;
+		$this->accountId = $accountId;
 
 		global $wpdb;
 		$where = '1=1';
-		$where .= " AND id_timesheet = $timesheetId";
+		$where .= " AND id_account = $accountId";
 		$result = $wpdb->get_results(
 			"SELECT * FROM " .
 			$this->tableName() .
 			" WHERE $where" .
 			" LIMIT 1"
 		);
-		$timesheet = $result[0];
+		$account = $result[0];
 
-		$this->load( $timesheet );
+		$this->load( $account );
 
-		return $timesheet;
+		return $account;
 
 	}
 
 	/*
-	 * Loading function for single timesheets
+	 * Loading function for single accounts
 	 */
-	public function load( $timesheet ) {
+	public function load( $account ) {
 
-		$tsem = new TimesheetEntryModel();
-		$timesheet->entries = $tsem->fetch( $timesheet->id_timesheet );
-
-		/* calculate totals */
-		$timesheet->totals = new \stdClass;
-		$timesheet->totals->minutes = 0;
-		$timesheet->totals->hours   = 0;
-
-		if( !empty( $timesheet->entries ) ) {
-			foreach( $timesheet->entries as $e ) {
-				$timesheet->totals->minutes += $e->duration;
-			}
-			$timesheet->totals->hours = round( $timesheet->totals->minutes / 60, 2 );
-		}
-		
-		/* load billable rate */
-		if( !$timesheet->billable_rate ) {
-			// fetch billable rate from workspace
-			$timesheet->billable_rate = 40;
-		}
-
-		$timesheet->totals->billable = round( $timesheet->totals->hours * $timesheet->billable_rate, 2 );
-
-		return $timesheet;
+		return $account;
 
 	}
 
@@ -121,7 +97,7 @@ class TimesheetModel {
 		global $wpdb;
 		$tableName = $wpdb->prefix . 'sacom_' . $this->table;
 
-		if( !$this->timesheetId ) {
+		if( !$this->accountId ) {
 
 			$wpdb->insert( $tableName, [
 				'id_account'  => $this->accountId,
@@ -141,7 +117,7 @@ class TimesheetModel {
 					'date_start'  => $this->dateStart,
 					'date_end'    => $this->dateEnd
 				],
-				[ 'id_timesheet' => $this->timesheetId ]
+				[ 'id_account' => $this->accountId ]
 			);
 
 		}
@@ -150,13 +126,13 @@ class TimesheetModel {
 
 	public function delete() {
 
-		if( !$this->timesheetId ) {
+		if( !$this->accountId ) {
 			return;
 		}
 
 		global $wpdb;
 		$wpdb->delete( $this->tableName(), [
-				'id_timesheet' => $this->timesheetId
+				'id_account' => $this->accountId
 			]
 		);
 

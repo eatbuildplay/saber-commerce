@@ -108,6 +108,11 @@ class DashboardComponent extends \SaberCommerce\Component {
 
 		add_shortcode('sacom_dashboard', function() {
 
+			$currentUser = wp_get_current_user();
+			if( !$currentUser->ID ) {
+				return 'Please login to continue.';
+			}
+
 			$template = new Template();
 			$template->path = 'components/Dashboard/templates/';
 			$template->name = 'main';

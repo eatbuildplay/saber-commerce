@@ -29,6 +29,9 @@ class Plugin {
 		$c = new Component\Account\AccountComponent();
 		$c->init();
 
+		$c = new Component\Admin\AdminComponent();
+		$c->init();
+
 		$c = new Component\Dashboard\DashboardComponent();
 		$c->init();
 

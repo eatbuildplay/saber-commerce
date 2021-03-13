@@ -32,6 +32,26 @@ class InvoiceModel {
 
 	}
 
+	public function fetchAll() {
+
+		global $wpdb;
+		$where = '1=1';
+		$results = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where"
+		);
+
+		foreach( $results as $index => $invoice ) {
+
+			$results[ $index ] = $this->load( $invoice );
+
+		}
+
+		return $results;
+
+	}
+
 	/*
 	 * Fetch one invoice from database
 	 */

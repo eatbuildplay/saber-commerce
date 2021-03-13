@@ -29,6 +29,19 @@ class PaymentModel {
 
 	}
 
+	public function fetchAll() {
+
+		global $wpdb;
+		$where = '1=1';
+		$result = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where"
+		);
+		return $result;
+
+	}
+
 	protected function tableName() {
 
 		global $wpdb;
