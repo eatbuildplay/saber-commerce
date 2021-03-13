@@ -2,12 +2,12 @@
 
 namespace SaberCommerce\Component\Payment;
 
-class PaymentModel {
+class PaymentInvoiceModel {
 
-	public $paymentId;
-	public $invoices = [];
-	public $invoiceModels = [];
-	public $table = 'payment';
+	public $paymentId = 0;
+	public $invoiceId = 0;
+	public $amount    = 0;
+	public $table     = 'payment_invoice';
 
 	public function save() {
 
@@ -15,6 +15,7 @@ class PaymentModel {
 
 		$data = [
 			'id_payment_method' => 49,
+			'id_invoice'				=> $this->invoiceId,
 			'memo' 							=> $this->memo,
 		];
 
@@ -27,27 +28,6 @@ class PaymentModel {
 			$wpdb->update( $tableName, $data,
 				[ 'id_payment' => $this->paymentId ]
 			);
-
-		}
-
-		/* Create and save the PaymentInvoiceModel(s) */
-		$this->createPaymentInvoiceModels();
-
-	}
-
-	private function createPaymentInvoiceModels() {
-
-		if( empty( $this->invoices )) {
-			return false;
-		}
-
-		foreach( $this->invoices as $invoiceId ) {
-
-			$pim                   = new PaymentInvoiceModel();
-			$pim->paymentId        = $this->paymentId;
-			$pim->invoiceId        = $this->invoiceId;
-			$pim->amount           = $this->invoiceId;
-			$this->invoiceModels[] = $pim;
 
 		}
 
