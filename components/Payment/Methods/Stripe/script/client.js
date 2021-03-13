@@ -33,7 +33,6 @@ function setupStripe() {
 		};
 
 		var card = elements.create("card", { style: style });
-		// Stripe injects an iframe into the DOM
 		card.mount("#card-element");
 
 		card.on("change", function (event) {
@@ -43,10 +42,14 @@ function setupStripe() {
 		});
 
 		var form = document.getElementById("payment-form");
-		form.addEventListener("submit", function(event) {
-			event.preventDefault();
+
+		form.addEventListener("submit", function( e ) {
+
+			e.preventDefault();
+
 			// Complete payment when the submit button is clicked
-			payWithCard(stripe, card, data.clientSecret);
+			payWithCard(stripe, card, response.clientSecret);
+
 		});
 
 	});
@@ -68,6 +71,8 @@ function setupStripe() {
 	        showError(result.error.message);
 	      } else {
 	        // The payment succeeded!
+					console.log('order complete called...')
+					console.log( result )
 	        orderComplete(result.paymentIntent.id);
 	      }
 	    });
@@ -76,7 +81,7 @@ function setupStripe() {
 	/* ------- UI helpers ------- */
 
 	// Shows a success message when the payment is complete
-	var orderComplete = function(paymentIntentId) {
+	var orderComplete = function( paymentIntentId ) {
 	  loading(false);
 	  document
 	    .querySelector(".result-message a")

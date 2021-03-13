@@ -30,6 +30,8 @@ class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 
 			\Stripe\Stripe::setApiKey('sk_test_4QKQNDPyqtbt7AvgoWd3uK2o');
 
+			$response = new \stdClass();
+
 			try {
 			  // retrieve JSON from POST body
 			  $invoices = $_POST['invoices'];
@@ -47,11 +49,11 @@ class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 				$paymentModel->memo = $paymentIntent->id;
 				$paymentModel->save();
 
-				$output = [
-					'clientSecret' => $paymentIntent->client_secret,
-				];
+				$response->clientSecret = $paymentIntent->client_secret;
 
-			  echo json_encode($output);
+				// send response
+				$response->code = 200;
+				wp_send_json_success( $response );
 
 			} catch (Error $e) {
 
