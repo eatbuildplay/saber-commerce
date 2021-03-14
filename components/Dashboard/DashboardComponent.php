@@ -19,6 +19,7 @@ class DashboardComponent extends \SaberCommerce\Component {
 		add_action('wp_ajax_sacom_dashboard_section_load', [$this, 'sectionLoad']);
 		add_action('wp_ajax_sacom_dashboard_timesheet_load', [$this, 'timesheetLoad']);
 		add_action('wp_ajax_sacom_dashboard_invoice_load', [$this, 'invoiceLoad']);
+		add_action('wp_ajax_sacom_dashboard_checkout_load', [$this, 'checkoutLoad']);
 
 	}
 
@@ -96,6 +97,32 @@ class DashboardComponent extends \SaberCommerce\Component {
 		$template = new Template();
 		$template->path = 'components/Dashboard/templates/';
 		$template->name = 'invoice-single';
+		$template->data['invoice'] = $response->invoice;
+		$response->template = $template->get();
+
+		// send response
+		wp_send_json_success( $response );
+
+	}
+
+	public function checkoutLoad() {
+
+		$invoiceId = $_POST['invoice'];
+
+		// open response
+		$response = new \stdClass();
+		$response->code = 200;
+
+		$user = wp_get_current_user();
+
+		$m = new InvoiceModel();
+		$response->invoice = $m->fetchOne( $invoiceId );
+		$response->user = $user;
+
+		// load checkout template
+		$template = new Template();
+		$template->path = 'components/Dashboard/templates/';
+		$template->name = 'checkout';
 		$template->data['invoice'] = $response->invoice;
 		$response->template = $template->get();
 

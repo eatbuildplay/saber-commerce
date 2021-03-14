@@ -23,6 +23,7 @@ $r = $m->fetch( $accountId );
 						<td><?php print $t->title; ?></td>
 						<td>
 							<button class="btn btn-secondary button-invoice-view" data-id="<?php print $t->id_invoice; ?>">View Invoice</button>
+							<button class="btn btn-secondary button-invoice-pay" data-id="<?php print $t->id_invoice; ?>">Pay Invoice</button>
 						</td>
 					</tr>
 					<?php endforeach; ?>

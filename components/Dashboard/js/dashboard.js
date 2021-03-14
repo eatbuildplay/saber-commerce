@@ -69,5 +69,22 @@
 
 	});
 
+	/* Load payment screen on button click. */
+	$( document ).on('click', '.button-invoice-view', function() {
+
+		let invoiceId = $(this).data('id');
+		var data = {
+			invoice: invoiceId
+		}
+		wp.ajax.post( 'sacom_dashboard_checkout_load', data ).done( function( response ) {
+
+			console.log( response );
+
+			let template = $( response.template );
+			$('#invoice-single-canvas').html( template );
+
+		});
+
+	});
 
 })( jQuery );
