@@ -57,8 +57,6 @@ class InvoiceModel {
 	 */
 	public function fetchOne( $invoiceId ) {
 
-		$this->invoiceId = $invoiceId;
-
 		global $wpdb;
 		$where = '1=1';
 		$where .= " AND id_invoice = $invoiceId";
@@ -68,10 +66,15 @@ class InvoiceModel {
 			" WHERE $where" .
 			" LIMIT 1"
 		);
-		$invoice = $result[0];
 
-		$this->load( $invoice );
+		if( empty( $result ) ) {
+			return false;
+		}
 
+		$this->invoiceId = $invoiceId;
+		$invoiceData = $result[0];
+
+		$invoice = $this->load( $invoiceData );
 		return $invoice;
 
 	}
@@ -79,11 +82,14 @@ class InvoiceModel {
 	/*
 	 * Loading function for single invoices
 	 */
-	public function load( $invoice ) {
+	public function load( $invoiceData ) {
+
+		$invoice = new InvoiceModel();
+		$invoice->invoiceId = $invoiceData->id_invoice;
 
 		// load line items
 		$m = new InvoiceLineModel();
-		$invoice->lines = $m->fetch( $invoice->id_invoice );
+		$invoice->lines = $m->fetch( $invoice->invoiceId );
 
 		// calculate total
 		$total = 0;

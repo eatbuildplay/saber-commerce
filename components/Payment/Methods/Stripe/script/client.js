@@ -6,6 +6,8 @@ function setupStripe( invoiceId ) {
 	// Disable the button until we have Stripe set up on the page
 	document.querySelector("button").disabled = true;
 
+	console.log('invoice id at 9: ' + invoiceId)
+
 	var data = {
 		invoices: [ invoiceId ]
 	}

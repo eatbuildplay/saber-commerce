@@ -1,6 +1,7 @@
 <?php
 
 namespace SaberCommerce\Component\Payment;
+use \SaberCommerce\Component\Invoice\InvoiceModel;
 
 class PaymentModel {
 
@@ -21,6 +22,7 @@ class PaymentModel {
 		if( !$this->paymentId ) {
 
 			$wpdb->insert( $this->tableName(), $data);
+			$this->paymentId = $wpdb->insert_id;
 
 		} else {
 
@@ -43,10 +45,13 @@ class PaymentModel {
 
 		foreach( $this->invoices as $invoiceId ) {
 
+			$invoiceModel = new InvoiceModel();
+			$invoice = $invoiceModel->fetchOne( $invoiceId );
+
 			$pim                   = new PaymentInvoiceModel();
 			$pim->paymentId        = $this->paymentId;
-			$pim->invoiceId        = $this->invoiceId;
-			$pim->amount           = $this->invoiceId;
+			$pim->invoiceId        = $invoice->invoiceId;
+			$pim->amount           = $invoice->total;
 
 			$pim->save();
 			$this->invoiceModels[] = $pim;

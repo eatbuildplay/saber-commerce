@@ -1,6 +1,7 @@
 <?php
 
 namespace SaberCommerce\Component\Payment\Methods\Stripe;
+use \SaberCommerce\Component\Payment\PaymentInvoiceModel;
 
 class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 
@@ -28,13 +29,22 @@ class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 
 		add_action('wp_ajax_sacom_stripe_checkout', function() {
 
-			\Stripe\Stripe::setApiKey('sk_test_4QKQNDPyqtbt7AvgoWd3uK2o');
-
+			$invoices = $_POST['invoices'];
 			$response = new \stdClass();
 
+			/*
+			 * Check for existing PaymentIntent
+			 */
+			$paymentInvoiceModel = new PaymentInvoiceModel();
+			$paymentInvoiceModels = $paymentInvoiceModel->fetchByInvoice( $invoices[0] );
+
+			$response->invoices 						= $invoices;
+			$response->paymentInvoiceModels = $paymentInvoiceModels;
+
+			\Stripe\Stripe::setApiKey('sk_test_4QKQNDPyqtbt7AvgoWd3uK2o');
+
 			try {
-			  // retrieve JSON from POST body
-			  $invoices = $_POST['invoices'];
+
 				$paymentComponent = new \SaberCommerce\Component\Payment\PaymentComponent();
 				$amount = $paymentComponent->calculatePaymentAmount( $invoices );
 
@@ -47,6 +57,7 @@ class StripePayments extends \SaberCommerce\Component\Payment\PaymentMethod {
 				$paymentModel = new \SaberCommerce\Component\Payment\PaymentModel();
 				$paymentModel->paymentMethod = 'stripe';
 				$paymentModel->memo = $paymentIntent->id;
+				$paymentModel->invoices = $invoices;
 				$paymentModel->save();
 
 				$response->paymentIntent = $paymentIntent;

@@ -83,7 +83,7 @@
 
 			$('#sacom-invoices-table').hide();
 
-			setupStripe( response.invoice.id_invoice );
+			setupStripe( response.invoice.invoiceId );
 
 		});
 

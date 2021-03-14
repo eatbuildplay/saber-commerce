@@ -38,8 +38,8 @@ $r = $m->fetch( $accountId );
 					<tr>
 						<td><?php print $t->title; ?></td>
 						<td>
-							<button class="btn btn-secondary button-invoice-view" data-id="<?php print $t->id_invoice; ?>">View Invoice</button>
-							<button class="btn btn-secondary button-invoice-pay" data-id="<?php print $t->id_invoice; ?>">Pay Invoice</button>
+							<button class="btn btn-secondary button-invoice-view" data-id="<?php print $t->invoiceId; ?>">View Invoice</button>
+							<button class="btn btn-secondary button-invoice-pay" data-id="<?php print $t->invoiceId; ?>">Pay Invoice</button>
 						</td>
 					</tr>
 					<?php endforeach; ?>
