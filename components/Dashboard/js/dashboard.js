@@ -70,7 +70,7 @@
 	});
 
 	/* Load payment screen on button click. */
-	$( document ).on('click', '.button-invoice-view', function() {
+	$( document ).on('click', '.button-invoice-pay', function() {
 
 		let invoiceId = $(this).data('id');
 		var data = {
@@ -82,6 +82,8 @@
 
 			let template = $( response.template );
 			$('#invoice-single-canvas').html( template );
+
+			setupStripe();
 
 		});
 
