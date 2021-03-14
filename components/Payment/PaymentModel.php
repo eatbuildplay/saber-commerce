@@ -66,6 +66,20 @@ class PaymentModel {
 
 	}
 
+	public function fetch( $accountId ) {
+
+		global $wpdb;
+		$where = '1=1';
+		$where .= " AND id_account = $accountId";
+		$result = $wpdb->get_results(
+			"SELECT * FROM " .
+			$this->tableName() .
+			" WHERE $where"
+		);
+		return $result;
+
+	}
+
 	public function fetchOne( $paymentId ) {
 
 		$this->paymentId = $paymentId;
