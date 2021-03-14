@@ -47,6 +47,8 @@ class PaymentModel {
 			$pim->paymentId        = $this->paymentId;
 			$pim->invoiceId        = $this->invoiceId;
 			$pim->amount           = $this->invoiceId;
+
+			$pim->save();
 			$this->invoiceModels[] = $pim;
 
 		}

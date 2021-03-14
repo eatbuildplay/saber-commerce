@@ -60,6 +60,17 @@ class PaymentComponent extends \SaberCommerce\Component {
 		) $charsetCollate;";
 		dbDelta( $sql );
 
+		/* Install Payment Invoice Table */
+		$tableName = $wpdb->prefix . 'sacom_payment_invoice';
+		$sql = "CREATE TABLE $tableName (
+			id_payment_invoice mediumint(9) NOT NULL AUTO_INCREMENT,
+			id_payment mediumint(9) NOT NULL,
+			id_invoice mediumint(9) NOT NULL,
+			amount decimal(10, 2) NOT NULL,
+			PRIMARY KEY (id_payment_invoice)
+		) $charsetCollate;";
+		dbDelta( $sql );
+
 	}
 
 

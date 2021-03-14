@@ -14,9 +14,9 @@ class PaymentInvoiceModel {
 		global $wpdb;
 
 		$data = [
-			'id_payment_method' => 49,
+			'id_payment'        => $this->paymentId,,
 			'id_invoice'				=> $this->invoiceId,
-			'memo' 							=> $this->memo,
+			'amount' 					  => $this->amount,
 		];
 
 		if( !$this->paymentId ) {
@@ -26,7 +26,7 @@ class PaymentInvoiceModel {
 		} else {
 
 			$wpdb->update( $tableName, $data,
-				[ 'id_payment' => $this->paymentId ]
+				[ 'id_payment_invoice' => $this->paymentId ]
 			);
 
 		}
