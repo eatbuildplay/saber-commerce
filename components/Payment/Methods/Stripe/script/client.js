@@ -1,4 +1,4 @@
-function setupStripe() {
+function setupStripe( invoiceId ) {
 
 	// A reference to Stripe.js initialized with your real test publishable API key.
 	var stripe = Stripe("pk_test_4QKQIABCRJKlYwZ4CoG0yQws");
@@ -7,7 +7,7 @@ function setupStripe() {
 	document.querySelector("button").disabled = true;
 
 	var data = {
-		invoices: [ 2 ]
+		invoices: [ invoiceId ]
 	}
 	wp.ajax.post( 'sacom_stripe_checkout', data ).done( function( response ) {
 

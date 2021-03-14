@@ -26,8 +26,6 @@
 			let template = $( response.template );
 			$('#dashboard-canvas').html( template );
 
-			setupStripe();
-
 		});
 
 	}
@@ -83,7 +81,7 @@
 			let template = $( response.template );
 			$('#invoice-single-canvas').html( template );
 
-			setupStripe();
+			setupStripe( response.invoice.id_invoice );
 
 		});
 

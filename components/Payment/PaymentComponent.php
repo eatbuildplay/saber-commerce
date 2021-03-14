@@ -38,9 +38,7 @@ class PaymentComponent extends \SaberCommerce\Component {
 
 		$invoiceModel = new \SaberCommerce\Component\Invoice\InvoiceModel;
 		$invoice = $invoiceModel->fetchOne( $invoices[0] );
-		//return $invoice->total * 100;
-
-		return 1500;
+		return $invoice->total * 100;
 
 	}
 
