@@ -81,6 +81,8 @@
 			let template = $( response.template );
 			$('#invoice-single-canvas').html( template );
 
+			$('#sacom-invoices-table').hide();
+
 			setupStripe( response.invoice.id_invoice );
 
 		});

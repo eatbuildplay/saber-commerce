@@ -6,10 +6,26 @@ $r = $m->fetch( $accountId );
 
 ?>
 
-<div class="container">
+<div id="invoices-page" class="container">
+
+	<!-- Breadcrumb section. -->
+	<div class="sacom-dashboard-breadcrumbs">
+		<ul>
+			<li>Invoices</li>
+			<li>Invoice Payment</li>
+		</ul>
+	</div>
+
+	<!-- Page header. -->
 	<div class="row">
 		<div class="col-12">
 			<h1>Invoices</h1>
+		</div>
+	</div>
+
+	<!-- Invoices table. -->
+	<div id="sacom-invoices-table" class="row">
+		<div class="col-12">
 			<table class="table">
 
 				<thead>
